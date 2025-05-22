@@ -1,0 +1,11 @@
+<div class="map" id="map" class="match-parent"></div>
+
+<p-popover #popover appendTo="body" dismissable="true">
+  <ng-template pTemplate="content">
+    <div *ngIf="selectedFeature">
+      <h3>{{ selectedFeature.properties.title }}</h3>
+      <p>{{ selectedFeature.properties.description || 'No additional information' }}</p>
+      <p-button icon="pi pi-plus" (onClick)="openNeueMeldung()"></p-button>
+    </div>
+  </ng-template>
+</p-popover>
