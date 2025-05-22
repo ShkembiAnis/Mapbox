@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../environments/environment';
 import {Popover} from 'primeng/popover';
@@ -7,7 +7,6 @@ import {PrimeTemplate} from 'primeng/api';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {NeueMeldungDialogComponent} from './neue-meldung-dialog/neue-meldung-dialog.component';
 import {Button} from 'primeng/button';
-import {DynamicDialogService} from '../../services/dynamic-dialog-service';
 
 @Component({
   selector: 'app-map',
@@ -20,7 +19,6 @@ import {DynamicDialogService} from '../../services/dynamic-dialog-service';
     Button,
   ],
   styleUrl: './map.component.css',
-  providers: [{provide: DialogService, useClass: DynamicDialogService}],
 })
 export class MapComponent implements OnInit{
   ref: DynamicDialogRef | undefined;
@@ -61,7 +59,7 @@ export class MapComponent implements OnInit{
     ]
   };
 
-  constructor(private dialogService: DynamicDialogService) {
+  constructor(private dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -204,7 +202,8 @@ export class MapComponent implements OnInit{
     this.ref = this.dialogService.open(NeueMeldungDialogComponent, {
       header: 'Neue Meldung',
       width: '70%',
-      height: '70%'
+      height: '70%',
+      closable: true,
     })
   }
 }
