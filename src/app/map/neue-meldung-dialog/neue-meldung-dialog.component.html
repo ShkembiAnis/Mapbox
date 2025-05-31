@@ -1,9 +1,45 @@
-<p-dropdown
-  [(ngModel)]="gefahr"
-  [options]="gefahrOptions"
-  [showClear]="true"
-  optionLabel="name"
-  optionValue="code"
-  placeholder="GefahrTyp auswählen"
-  appendTo="body"
-></p-dropdown>
+<div class="flex flex-column gap-4">
+
+  <div class="flex flex-column gap-1">
+    <label for="haupt" class="font-medium">Hauptkategorie</label>
+    <input id="haupt" type="text" pInputText [value]="readOnlyHauptkategorie" readonly class="w-full">
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <label for="unter" class="font-medium">Unterkategorie</label>
+    <p-dropdown id="unter" class="w-full"
+                [(ngModel)]="selectedUnterkategorie"
+                [options]="unterkategorieOptions"
+                optionLabel="label" optionValue="value"
+                placeholder="Unterkategorie auswählen" appendTo="body">
+    </p-dropdown>
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <label for="desc" class="font-medium">Beschreibung</label>
+    <textarea id="desc" pTextarea rows="3" class="w-full"
+              [(ngModel)]="description" placeholder="Beschreibung..."></textarea>
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <label for="bsp" class="font-medium">Beispiele <small>(jede Zeile ein Eintrag)</small></label>
+    <textarea id="bsp" pTextarea rows="4" class="w-full"
+              [(ngModel)]="beispieleText"
+              placeholder="z. B. Baustellen: Fehlende Absperrungen&#10;Kaputte Gehwege: Schlaglöcher"></textarea>
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <label for="bew" class="font-medium">Bewertung (1–10)</label>
+    <p-inputNumber id="bew" class="w-full"
+                   [(ngModel)]="bewertung" [min]="1" [max]="10" placeholder="z. B. 5">
+    </p-inputNumber>
+  </div>
+
+  <!-- Buttons right aligned -->
+  <div class="flex justify-content-end gap-2 mt-3">
+    <button pButton type="button" label="Abbrechen" class="p-button-secondary" (click)="cancel()"></button>
+    <button pButton type="button" label="Speichern"
+            [disabled]="!selectedUnterkategorie || bewertung === null"
+            (click)="saveAndClose()"></button>
+  </div>
+</div>
